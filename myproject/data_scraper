@@ -1,0 +1,61 @@
+from bs4 import BeautifulSoup
+import requests
+import pandas as pd
+import sys
+
+def data_scraper():
+    url = 'https://en.wikipedia.org/wiki/List_of_largest_companies_in_the_United_States_by_revenue'
+    #url = 'http://sebastianbrzustowicz.pythonanywhere.com/about_me'
+    #url = 'https://info.cern.ch/'
+
+    table_num = 1
+
+    if len(sys.argv) > 1:
+        url = str(sys.argv[1])
+        table_num = int(sys.argv[2])
+
+    #url = 'https://en.wikipedia.org/wiki/List_of_largest_companies_in_the_United_States_by_revenue'#
+
+    page = requests.get(url).text
+
+    soup = BeautifulSoup(page, "html.parser")
+
+    table = soup.find_all('table')[table_num]
+    world_titles = table.find_all('th')
+    world_table_titles = [title.text.strip() for title in world_titles]
+
+    df = pd.DataFrame(columns = world_table_titles)
+
+    column_data = table.find_all('tr')
+
+    for row in column_data[1:]:
+        row_data = row.find_all('td')
+        individual_row_data = [data.text.strip() for data in row_data]
+
+        length = len(df)
+        df.loc[length] = individual_row_data
+
+    #print(df)
+    df = df.reset_index(drop=True)
+
+    pd.set_option('display.max_columns', None)
+    pd.set_option('display.max_rows', None)
+    pd.set_option('display.width', 10000)
+
+
+    print(df.to_string(index=False))
+    return df.to_string(index=False)
+    #print(list(df.columns.values))
+    #print(df)
+    #from tabulate import tabulate
+    #print(tabulate(df.to_string(index=False), tablefmt='html'))
+
+    #result = df.to_html() 
+    #print(result)
+
+    #final_array = [df.to_string(index=False), df.to_html()]
+
+    #def ret():
+    #    #print(df.to_string(index=False))
+    #    return df.to_string(index=False), df.to_html()
+    #ret()

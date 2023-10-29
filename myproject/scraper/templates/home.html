@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="description" content="Data scraper" />
+  <meta charset="utf-8">
+  <title>Data scraper</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="../static/styles.css" />
+  <script type="text/javascript" src="../static/copy.js"></script>
+</head>
+
+<body style="background-color: palegreen;">
+  
+<div class="container" style="text-align: center ;background-color: white; min-height: 85%; max-height: 90%;width: 85%; max-width: 2000px;margin: auto; margin-top: 50px;border-style: solid; border-radius: 20px;box-shadow: -10px 10px 20px black;"> 
+  <h1>Data scraper</h1>
+  <p>Scrap table from your website</p>
+  <form method="POST" action="">
+    {% csrf_token %}
+    <div style="width: 49%; display: inline-block; margin: auto;">
+      <p>Provide URL</p>
+      <input type="text" name="urlname" style="background-color: rgb(232, 232, 232);font-size: 110%;border-radius: 5px; width: 80%;" required><nobr></nobr>
+    </div>
+    <div style="width: 49%; display: inline-block; margin: auto;">
+      <p>Table number (0-999)</p>
+      <input type="text" name="tablenumname" value="1" style="background-color: rgb(232, 232, 232);text-align: center;font-size: 110%;border-radius: 5px; width: 80%; max-width: 100px;" required>
+    </div>
+    <br>
+    <input type="submit" name="scrapname" value="Scrap" class="mybutton"></input><br>
+    <hr style="height:1px; width: 95%; background-color: black;">
+    <!--<p>Table format:</p>
+    <table class="table" style="background-color: rgb(232, 232, 232);width: auto ;border-radius: 5px; margin: auto;">
+      <thead>
+          <tr>
+              {% for k in header %}
+              <th>{{k}}</th>
+              {% endfor %}
+          </tr>
+      </thead>
+      <tbody>
+          {% for r in rows %}
+              <tr>
+                  <td>{{r.id}}</td>
+                  <td>{{r.chemblid}}</td>
+                  <td>{{r.prefName}}</td>
+              </tr>
+          {% endfor %}
+      </tbody>
+    </table>-->
+  </form>
+  <p style="float: left;margin-left: 60px;">Plain text:</p><input type="submit" onclick="copy()" value="Click to Copy" class="mybutton" style="float: right; margin-right: 8%; margin-top: 20px;"></input>
+  <textarea name="scrapedtablename" id="textareaID" placeholder="Scraped table data" rows="30" cols="50" style="background-color: rgb(232, 232, 232);width: 90% ;border-radius: 5px; margin: 0px 20px 20px 20px;">{{ mytext }}</textarea>
+</div>
+
+<script>
+</script>
+
+</body>
+</html>
