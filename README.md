@@ -1,5 +1,5 @@
 # Data-scraping-webapp
-Django app. Scrap table from any website.
+Django + Pandas. Scrap table from any website.
 
 1. Provide url for website that contain table data
 2. Specify number of this table (i.e. if there is only one table enter 0)
